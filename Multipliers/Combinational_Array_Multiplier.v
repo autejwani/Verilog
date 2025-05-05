@@ -43,21 +43,12 @@ endmodule
 //======================== Submodules ===========================//
 
 // arrayblock: 1-bit partial product and 3-input addition
-module arrayblock (
-    input a,
-    input b,
-    input s_in,
-    input c_in,
-    output s_out,
-    output c_out
-);
-    wire p, sum1, carry1, carry2;
-    assign p = a & b;
-    assign sum1 = p ^ s_in;
-    assign s_out = sum1 ^ c_in;
-    assign carry1 = p & s_in;
-    assign carry2 = sum1 & c_in;
-    assign c_out = carry1 | carry2;
+module arrayblock(a, b, s_in, c_in, s_out, c_out);
+input a, b, s_in, c_in;
+output s_out, c_out;
+wire p;
+assign p = a&b;
+assign (c_out, s_out} = p+s_in+c_in;
 endmodule
 
 // half adder: 2-input adder
